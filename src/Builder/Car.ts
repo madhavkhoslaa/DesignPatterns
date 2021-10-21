@@ -16,26 +16,29 @@ class Car {
 }
 
 class CarBuilder extends Car {
-  constructor() {
-    super(4, FuelType.PETROL);
+  constructor(
+    public _Cylinder: number = 2,
+    public _FuelType: FuelType = FuelType.DIESEL
+  ) {
+    super(_Cylinder, _FuelType);
   }
   setFuelType(FuelType: FuelType) {
-    this.FuelType = FuelType;
+    this._FuelType = FuelType;
     return this;
   }
   setCylinder(cylinder: number) {
-    this.cylinder = cylinder;
+    this._Cylinder = cylinder;
     return this;
   }
   build() {
-    return new Car(this.cylinder, this.FuelType);
+    return new Car(this._Cylinder, this._FuelType);
   }
 }
 
-const car = new CarBuilder();
-console.log(car.getCylinder());
-console.log(car.setCylinder(2).setFuelType(FuelType.PETROL));
-console.log(car.getCylinder());
-console.log(car.getFuelType());
-const Builtcar = car.build();
-console.log(Builtcar.getFuelType());
+const car = new CarBuilder(2, FuelType.PETROL).build();
+console.log(car);
+const car2 = new CarBuilder()
+  .setCylinder(0)
+  .setFuelType(FuelType.ELECTRIC)
+  .build();
+console.log(car2);
